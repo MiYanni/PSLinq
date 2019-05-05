@@ -1,10 +1,10 @@
 <!-- region Generated -->
-# Xkcd
-This directory contains the PowerShell module for the Xkcd service.
+# PSLinq
+This repo contains the PowerShell module for PSLinq.
 
 ---
 ## Status
-[![Xkcd](https://img.shields.io/powershellgallery/v/Xkcd.svg?style=flat-square&label=Xkcd "Xkcd")](https://www.powershellgallery.com/packages/Xkcd/)
+[![PSLinq](https://img.shields.io/powershellgallery/v/PSLinq.svg?style=flat-square&label=PSLinq "PSLinq")](https://www.powershellgallery.com/packages/PSLinq/)
 
 ## Info
 - Modifiable: yes
@@ -17,5 +17,5 @@ This directory contains the PowerShell module for the Xkcd service.
 This module was primarily generated via [AutoRest](https://github.com/Azure/autorest) using the [PowerShell](https://github.com/Azure/autorest.powershell) extension.
 
 ## Development
-For information on how to develop for `Xkcd`, see [how-to.md](how-to.md).
+For information on how to develop for `PSLinq`, see [how-to.md](how-to.md).
 <!-- endregion -->
