@@ -38,29 +38,6 @@ namespace Sample.API.Cmdlets
 
         //private int _counter = 0;
 
-        //[Parameter(Mandatory = false, DontShow = true, HelpMessage = "SendAsync Pipeline Steps to be appended to the front of the pipeline")]
-        //[ValidateNotNull]
-        //[Category(ParameterCategory.Runtime)]
-        //public Runtime.SendAsyncStep[] HttpPipelineAppend { get; set; }
-
-        //[Parameter(Mandatory = false, DontShow = true, HelpMessage = "SendAsync Pipeline Steps to be prepended to the front of the pipeline")]
-        //[ValidateNotNull]
-        //[Category(ParameterCategory.Runtime)]
-        //public Runtime.SendAsyncStep[] HttpPipelinePrepend { get; set; }
-
-        //[Parameter(Mandatory = false, DontShow = true, HelpMessage = "The URI for the proxy server to use")]
-        //[Category(ParameterCategory.Runtime)]
-        //public System.Uri Proxy { get; set; }
-
-        //[Parameter(Mandatory = false, DontShow = true, HelpMessage = "Credentials for a proxy server to use for the remote call")]
-        //[ValidateNotNull]
-        //[Category(ParameterCategory.Runtime)]
-        //public PSCredential ProxyCredential { get; set; }
-
-        //[Parameter(Mandatory = false, DontShow = true, HelpMessage = "Use the default credentials for the proxy")]
-        //[Category(ParameterCategory.Runtime)]
-        //public SwitchParameter ProxyUseDefaultCredentials { get; set; }
-
         //protected override void BeginProcessing()
         //{
         //    //var elements = InvokeCommand.InvokeScript(Predicate.ToString());
@@ -95,17 +72,16 @@ namespace Sample.API.Cmdlets
         {
             base.EndProcessing();
 
+            DeferredEnumerable.Collection = DeferredEnumerable.Collection.Where((e, i) =>
+                (Predicate.InvokeReturnAsIs(e, i) as PSObject)?.ImmediateBaseObject as bool? ?? false);
+
+            WriteObject(DeferredEnumerable);
+
             //DeferredEnumerable.Collection = DeferredEnumerable.Collection.Where((e, i) =>
             //{
             //    var value = Predicate.InvokeReturnAsIs(e) as PSObject;
             //    return value?.ImmediateBaseObject as bool? ?? false;
             //});
-
-            DeferredEnumerable.Collection = DeferredEnumerable.Collection.Where((e, i) => 
-                (Predicate.InvokeReturnAsIs(e) as PSObject)?.ImmediateBaseObject as bool? ?? false);
-
-            WriteObject(DeferredEnumerable);
-
 
             //WriteObject(ElementsList.Where((e, i) =>
             //{
@@ -117,7 +93,6 @@ namespace Sample.API.Cmdlets
 
             //WriteObject(ElementsList.Select((e, i) => Predicate.InvokeReturnAsIs(e)), true);
             //base.EndProcessing();
-
 
             //var elements = InvokeCommand.InvokeScript($"{_counter++}");
             //var elements = Collection.OfType<PSObject>().Where((e, i) => InvokeCommand.InvokeScript($"$_ = {e}; $_1 = {i}; {Predicate.ToString()}", e).OfType<bool>().First());
@@ -155,8 +130,6 @@ namespace Sample.API.Cmdlets
         //    //enumerator.MoveNext();
         //    //_elementsList.Add(enumerator.Current);
 
-
-
         //    //_elements = _elements.Append(enumerator.Current);
         //    //WriteObject(enumerator.Current);
         //    //WriteObject(InvokeCommand.InvokeScript($"$_ = {enumerator.Current}; {Predicate.ToString()}").Select(po => po.BaseObject).OfType<bool>().FirstOrDefault(), true);
@@ -186,41 +159,5 @@ namespace Sample.API.Cmdlets
         //    //var elements = PsHelpers.RunScript<PSObject>($"$_ = 2; {Predicate.ToString()}");
         //    //var elements = InvokeCommand.InvokeScript($"{++_counter}");
         //    //WriteObject(elements, true);
-
-        //    //((Runtime.IEventListener)this).Signal(Runtime.Events.CmdletProcessRecordStart).Wait(); if( ((Runtime.IEventListener)this).Token.IsCancellationRequested ) { return; }
-        //    //try
-        //    //{
-        //    //    // work
-        //    //    using( var asyncCommandRuntime = new Runtime.PowerShell.AsyncCommandRuntime(this, ((Runtime.IEventListener)this).Token) )
-        //    //    {
-        //    //        asyncCommandRuntime.Wait( ProcessRecordAsync(),((Runtime.IEventListener)this).Token);
-        //    //    }
-        //    //}
-        //    //catch (System.AggregateException aggregateException)
-        //    //{
-        //    //    // unroll the inner exceptions to get the root cause
-        //    //    foreach( var innerException in aggregateException.Flatten().InnerExceptions )
-        //    //    {
-        //    //        ((Runtime.IEventListener)this).Signal(Runtime.Events.CmdletException, $"{innerException.GetType().Name} - {innerException.Message} : {innerException.StackTrace}").Wait(); if( ((Runtime.IEventListener)this).Token.IsCancellationRequested ) { return; }
-        //    //        // Write exception out to error channel.
-        //    //        WriteError( new ErrorRecord(innerException,string.Empty, ErrorCategory.NotSpecified, null) );
-        //    //    }
-        //    //}
-        //    //catch (System.Exception exception) when ((exception as PipelineStoppedException) != null && (exception as PipelineStoppedException).InnerException == null)
-        //    //{
-        //    //    ((Runtime.IEventListener)this).Signal(Runtime.Events.CmdletException, $"{exception.GetType().Name} - {exception.Message} : {exception.StackTrace}").Wait(); if( ((Runtime.IEventListener)this).Token.IsCancellationRequested ) { return; }
-        //    //    ThrowTerminatingError( new ErrorRecord(exception,string.Empty, ErrorCategory.NotSpecified, null) );
-        //    //}
-        //    //catch (System.Exception exception)
-        //    //{
-        //    //    ((Runtime.IEventListener)this).Signal(Runtime.Events.CmdletException, $"{exception.GetType().Name} - {exception.Message} : {exception.StackTrace}").Wait(); if( ((Runtime.IEventListener)this).Token.IsCancellationRequested ) { return; }
-        //    //    // Write exception out to error channel.
-        //    //    WriteError( new ErrorRecord(exception,string.Empty, ErrorCategory.NotSpecified, null) );
-        //    //}
-        //    //finally
-        //    //{
-        //    //    ((Runtime.IEventListener)this).Signal(Runtime.Events.CmdletProcessRecordEnd).Wait();
-        //    //}
-        //}
     }
 }

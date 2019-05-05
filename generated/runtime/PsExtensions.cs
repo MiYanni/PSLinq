@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Management.Automation;
 using System.Reflection;
 
@@ -86,5 +87,8 @@ namespace Sample.API.Runtime.PowerShell
 
         public static void RunScript(this EngineIntrinsics engineIntrinsics, ScriptBlock block)
             => engineIntrinsics.RunScript<PSObject>(block.ToString());
+
+        public static bool IsParameterBound<TPSCmdlet, TProp>(this TPSCmdlet cmdlet, Expression<Func<TPSCmdlet, TProp>> propertySelector) where TPSCmdlet : PSCmdlet
+            => cmdlet.MyInvocation.BoundParameters.ContainsKey(((MemberExpression)propertySelector.Body).Member.Name);
     }
 }

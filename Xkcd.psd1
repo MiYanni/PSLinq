@@ -29,8 +29,8 @@
 # endregion 
 
 # region exports
-  CmdletsToExport = 'Get-XkcdComic', 'Invoke-LinqGroupBy', 'Invoke-LinqToArray', 'Invoke-LinqWhere', '*'
-  AliasesToExport = 'LinqGroupBy', 'LinqToArray', 'LinqWhere', '*'
+  CmdletsToExport = 'Get-XkcdComic', 'Invoke-LinqFirst', 'Invoke-LinqGroupBy', 'Invoke-LinqLast', 'Invoke-LinqToArray', 'Invoke-LinqWhere', '*'
+  AliasesToExport = 'LinqFirst', 'LinqGroupBy', 'LinqLast', 'LinqToArray', 'LinqWhere', '*'
 # endregion
 
 }
