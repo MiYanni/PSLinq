@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Management.Automation;
+using System.Management.Automation.Runspaces;
 
 namespace Sample.API.Cmdlets
 {
@@ -71,6 +72,21 @@ namespace Sample.API.Cmdlets
         protected override void EndProcessing()
         {
             base.EndProcessing();
+
+
+
+            //DeferredEnumerable.Collection = DeferredEnumerable.Collection.Where((e, i) =>
+            //{
+            //    //var pipeline = Predicate.GetSteppablePipeline(CommandOrigin);
+
+            //    var invoked = InvokeCommand.InvokeScript($"$_ = {e}; $_1 = {i}; {Predicate.ToString()}", false,
+            //        PipelineResultTypes.All, null);
+            //    return (invoked.LastOrDefault())?.ImmediateBaseObject as bool? ?? false;
+            //    //var scriptBlock = ScriptBlock.Create($"$_ = {e}; $_1 = {i}; {Predicate.ToString()}");
+
+            //    //return (pipeline.Process(e).OfType<PSObject>().FirstOrDefault())?.ImmediateBaseObject as bool? ?? false;
+            //    //return (scriptBlock.InvokeReturnAsIs(e) as PSObject)?.ImmediateBaseObject as bool? ?? false;
+            //});
 
             DeferredEnumerable.Collection = DeferredEnumerable.Collection.Where((e, i) =>
                 (Predicate.InvokeReturnAsIs(e, i) as PSObject)?.ImmediateBaseObject as bool? ?? false);
